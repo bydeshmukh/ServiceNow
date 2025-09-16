@@ -1,0 +1,597 @@
+                   ## Client Script Assignments
+** Check Field is Empty Or Not
+
+function onSubmit() {
+   //Type appropriate comment here, and begin script below
+   var use = g_form.getValue('u_assigned_to');
+  if (!use)
+   {
+	g_form.showFieldMsg('u_assigned_to','Mandatory - Field Dont Leave  Empty','error');
+	return false;
+   }
+   else{
+	g_form.clearMessages();
+   }
+   
+}
+---------------------------------------------------------------------------------------------------------------------------------
+1 - make all field mandatory when active = true
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    var ac = g_form.getValue('u_active');
+    if (ac == 'true') {
+
+        var fi = g_form.getEditableFields();
+        for (var i = 0; i < fi.length; i++) {
+            g_form.setReadOnly(fi[i], true);
+
+        }
+    }
+
+
+}
+---------------------------------------------------------------------------------------------------------------------------------
+2-make field [assignment to] mandatory when caller & assignment User has same manager
+
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+var user1 = g_form.getReference('assigned_to');
+    var user2 = g_form.getReference('caller_id');
+
+    if(user1.manager == user2.manager && user1.manager !=='')       // alternative -  if(user1.manager == user2.manager || user1.manager =='' && user2.manager ==')  
+	{
+		alert("user has same manager");
+	}
+	else{
+		alert("manager are diffrent");
+	}
+   
+}
+---------------------------------------------------------------------------------------------------------------------------------
+3- after selecting caller his detils such as fname,lname,full name,email,phone num,manager should get filled automatically
+
+ var aa = g_form.getReference('u_username');
+
+    g_form.setValue('u_first_name', aa.first_name);
+    g_form.setValue('u_last_name', aa.last_name);
+    g_form.setValue('u_email_id', aa.email);
+    g_form.setValue('u_phone_number', aa.mobile_phone);
+    g_form.setValue('u_manager', aa.manager);
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+4- after click on active =true apply as much as method and remove on click of active = false
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    var act = g_form.getValue('u_active');
+
+    if (act == 'true') {
+		g_form.removeDecoration('u_state', 'icon-check-circle', 'Power House', 'color-green');
+        g_form.addDecoration('u_state', 'icon-power', 'Power', 'color-orange');
+        g_form.setReadOnly('u_first_name', true);
+        g_form.setMandatory('u_last_name', true);
+        g_form.setDisplay('u_phone_number', false);
+        g_form.clearValue('u_email_id');
+		g_form.addOption('u_state','Restest','RETEST','2');
+		g_form.flash('u_approval','#EE82EE','-0.5');
+		//alert(g_form.getSectionNames());  scripting_info,related_discussion
+		g_form.setSectionDisplay('scripting_info',false);
+		g_form.clearMessages();
+		g_form.addErrorMessage('* is mandatory');
+		g_form.addInfoMessage('Welcome to snow');
+		g_form.disableAttachments();
+		g_form.setLabelOf('u_short_discription','100 Words Discription');
+		g_form.showFieldMsg('u_assigned_group','dont leave empty','Error');
+		g_form.showFieldMsg('u_assigned_to','dont leave empty','info');
+
+    } else {
+		g_form.removeDecoration('u_state', 'icon-power', 'Power', 'color-orange');
+        g_form.addDecoration('u_state', 'icon-check-circle', 'Power House', 'color-green');
+        g_form.setReadOnly('u_first_name', false);
+        g_form.setMandatory('u_last_name', false);
+        g_form.setDisplay('u_phone_number', true);
+		g_form.removeOption('u_state','Restest');
+		g_form.setSectionDisplay('scripting_info',true);
+		g_form.clearMessages();
+		g_form.addErrorMessage('* is Required');
+		g_form.addInfoMessage('Welcome to Service-Now');
+		g_form.enableAttachments();
+		g_form.setLabelOf('u_short_discription','u_assigned_to');
+		g_form.hideAllFieldMsgs();
+    
+    }
+
+}
+---------------------------------------------------------------------------------------------------------------------------------
+
+5 - when i choose any state that related string field should get display and hide all state field
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   var a = g_form.getValue('u_state');
+
+   if(a=='1')
+   {
+	g_form.setDisplay('u_new_reson',true);
+	g_form.setDisplay('u_in_progress_reson',false);
+	g_form.setDisplay('u_on_hold_reson',false);
+	g_form.setDisplay('u_resolved_reson',false);
+	g_form.setDisplay('u_closed_reson',false);
+	g_form.setDisplay('u_canclled_reson',false);
+
+   }
+   else  if(a=='2')
+   {
+	g_form.setDisplay('u_new_reson',false);
+	g_form.setDisplay('u_in_progress_reson',true);
+	g_form.setDisplay('u_on_hold_reson',false);
+	g_form.setDisplay('u_resolved_reson',false);
+	g_form.setDisplay('u_closed_reson',false);
+	g_form.setDisplay('u_canclled_reson',false);
+
+   }
+    else  if(a=='3')
+   {
+	g_form.setDisplay('u_new_reson',false);
+	g_form.setDisplay('u_in_progress_reson',false);
+	g_form.setDisplay('u_on_hold_reson',true);
+	g_form.setDisplay('u_resolved_reson',false);
+	g_form.setDisplay('u_closed_reson',false);
+	g_form.setDisplay('u_canclled_reson',false);
+
+   }
+    else  if(a=='6')
+   {
+	g_form.setDisplay('u_new_reson',false);
+	g_form.setDisplay('u_in_progress_reson',false);
+	g_form.setDisplay('u_on_hold_reson',false);
+	g_form.setDisplay('u_resolved_reson',true);
+	g_form.setDisplay('u_closed_reson',false);
+	g_form.setDisplay('u_canclled_reson',false);
+
+   }
+    else  if(a=='7')
+   {
+	g_form.setDisplay('u_new_reson',false);
+	g_form.setDisplay('u_in_progress_reson',false);
+	g_form.setDisplay('u_on_hold_reson',false);
+	g_form.setDisplay('u_resolved_reson',false);
+	g_form.setDisplay('u_closed_reson',true);
+	g_form.setDisplay('u_canclled_reson',false);
+
+   }
+    else  if(a=='8')
+   {
+	g_form.setDisplay('u_new_reson',false);
+	g_form.setDisplay('u_in_progress_reson',false);
+	g_form.setDisplay('u_on_hold_reson',false);
+	g_form.setDisplay('u_resolved_reson',false);
+	g_form.setDisplay('u_closed_reson',false);
+	g_form.setDisplay('u_canclled_reson',true);
+
+   }
+   else{
+	g_form.setDisplay('u_new_reson',false);
+	g_form.setDisplay('u_in_progress_reson',false);
+	g_form.setDisplay('u_on_hold_reson',false);
+	g_form.setDisplay('u_resolved_reson',false);
+	g_form.setDisplay('u_closed_reson',false);
+	g_form.setDisplay('u_canclled_reson',false);
+
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+6 - Define priority value based on impact and urgency value
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    var u = g_form.getValue('u_urgency');
+    var i = g_form.getValue('u_impact');
+	if(u=='1' && i=='1')
+	{
+		g_form.setValue('u_priority','1');
+	}
+	else if(u=='2' && i=='2')
+	{
+		g_form.setValue('u_priority','2');
+	}
+
+        melse if(u=='3' && i=='3')
+	{
+		g_form.setValue('u_priority','3');
+	}
+	else if(u=='2' && i=='3')
+	{
+		g_form.setValue('u_priority','3');
+	}
+	else if(u=='1' && i=='2')
+	{
+		g_form.setValue('u_priority','2');
+	}
+	
+	else{
+		g_form.addInfoMessage("Nothing");
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------
+7 - make short description mandatory when state is - cancelled
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   var gc=g_form.getValue('u_state');
+   if(gc=='8')
+   {
+	g_form.setMandatory("u_discription",true);
+   }
+   
+}
+---------------------------------------------------------------------------------------------------------------------------------
+8 - make caller field readonly when caller & logged user are same
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+if (g_form.getValue('caller_id') == g_user.userID) {
+    g_form.setReadOnly('caller_id',true);
+} else {
+    // Caller is someone else
+     g_form.setReadOnly('caller_id',false);
+}
+   
+   
+}
+---------------------------------------------------------------------------------------------------------------------------------
+9- when user click on section[true] it should show section and when he click on section [false] it should hide 
+   by default section is hide
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   var a=g_form.getValue('u_section');
+   if(a=='true')
+   {
+	// scripting_info,related_discussion
+	g_form.setSectionDisplay('related_discussion',true);
+	g_form.setSectionDisplay('scripting_info',true);
+   }
+   else{
+	g_form.setSectionDisplay('scripting_info',false);
+	g_form.setSectionDisplay('related_discussion',false);
+   }
+   
+}
+---------------------------------------------------------------------------------------------------------------------------------
+10 - if caller is vip showfield msg and make priority high[1 -critical]
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    var vipuser = g_form.getReference('caller_id');
+    if (vipuser.vip == 'true') {
+		g_form.hideAllFieldMsgs();
+		g_form.setValue('priority',1);
+        g_form.showFieldMsg('priority', 'User is VIP Give him attention first');
+    } else {
+		g_form.hideAllFieldMsgs();
+        g_form.showFieldMsg('priority', 'User is Normal');
+		
+    }
+
+}
+---------------------------------------------------------------------------------------------------------------------------------
+11 - show error msg when selected user in assigned field do not have mail id
+
+ var getuser = g_form.getReference('u_assigned_to');
+
+   if(getuser.email=='')
+   {
+	g_form.showFieldMsg('u_assigned_to','User has no email Id','error');
+	g_form.addDecoration('u_assigned_to','icon-mail','mail','color-green');
+   }
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+12 - set assignment group ='service desk' if category is - software
+
+var cat=g_form.getValue('u_category');
+  if(cat=='software')
+  {
+	g_form.setValue('u_assigned_group','d625dccec0a8016700a222a0f7900d06');
+	g_form.addDecoration('u_assigned_group','icon-user','group','color-green');
+  }
+---------------------------------------------------------------------------------------------------------------------------------
+13 - show alert('you cant change the state from resolved to in progress without writing description
+note-save one record having state = resolved
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    var st = g_form.getValue('u_state');
+    var comm = g_form.getValue('u_discription');
+    if (oldValue == '6' && newValue == 2 && comm =='') {
+        alert('You can not change the state without wrinting discription');
+		g_form.setValue('u_state','6');
+	
+    }
+	else  if (oldValue == '6' && newValue == 2 && comm !==''){
+		g_form.save();
+	}
+
+
+}
+---------------------------------------------------------------------------------------------------------------------------------
+14 - when logged in user and caller both are same then dont allow them to assignment group field [make it readonly]
+
+ var caller_user=g_form.getValue('u_username');
+  if(caller_user == g_user.userID)
+  {
+	g_form.setReadOnly('u_assigned_group',true);
+	g_form.showFieldMsg('u_assigned_group','Logged in user & caller Should not same','error');
+  }
+---------------------------------------------------------------------------------------------------------------------------------
+15 - user should not submit the form without writing description & short description
+
+function onSubmit() {
+
+
+    if (g_form.getValue('u_short_discription') == '' && g_form.getValue('u_discription') == '') {
+        g_form.setMandatory('u_short_discription', true);
+        g_form.setMandatory('u_discription', true);
+        return false;
+    } else {
+        g_form.setMandatory('u_short_discription', false);
+        g_form.setMandatory('u_discription', false);
+        return true;
+    }
+
+}
+---------------------------------------------------------------------------------------------------------------------------------
+16 - onCellEdit Example
+1 scenario - on list view if user try to change value of active field do not allow him to do
+
+function onCellEdit(sysIDs, table, oldValues, newValue, callback) {
+    var saveAndClose = true;
+
+    if (newValue == 'true') {
+        alert("You are not allowed to change");
+        saveAndClose = false;
+    }
+
+    callback(saveAndClose);
+}
+**********************************
+2 scenario - don't allowed user to update username/caller field from list view 
+
+function onCellEdit(sysIDs, table, oldValues, newValue, callback) {
+    var saveAndClose = true;
+
+    if (oldValues !== newValue) {
+        alert('Not Allowed');
+        saveAndClose = false;
+    }
+
+    callback(saveAndClose);
+}
+**********************************
+3 scenario - don't allowed user to update description from list view
+
+function onCellEdit(sysIDs, table, oldValues, newValue, callback) {
+  var saveAndClose = true;
+ 
+ if(oldValues !== newValue)
+ {
+	alert('not allow to make changes');
+	saveAndClose = false;
+ }
+ 
+ callback(saveAndClose); 
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+17 - if description contain word such as 'software' / 'application' then assign ticket to software group
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   var des= g_form.getValue('u_discription');
+   if(des =='software' || des =='application')
+   {
+	g_form.setValue('u_assigned_group','8a4dde73c6112278017a6a4baf547aa7');
+	g_form.showFieldMsg('u_assigned_group','Group value has been set','info');
+   }
+   else{
+	g_form.clearValue('u_assigned_group');
+	g_form.hideFieldMsg('u_assigned_group');
+   }
+   
+}
+---------------------------------------------------------------------------------------------------------------------------------
+18 - Email field validation
+
+ var email = g_form.getValue('u_test_email'); // Change 'email' to your field name
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (email && !emailRegex.test(email)) {
+        g_form.showFieldMsg('u_test_email', 'Invalid email format.', 'error');
+        return false; // Prevent form submission
+    }
+
+Note -- 
+  
+Examples of valid emails:
+✅ user@example.com
+✅ john.doe123@gmail.co.uk
+✅ test_email@my-domain.org
+
+Examples of invalid emails:
+❌ user@.com (Domain name missing)
+❌ user@domain..com (Consecutive dots in the domain)
+❌ @example.com (Missing username)
+---------------------------------------------------------------------------------------------------------------------------------
+19 - Mobile Number Field Validation
+
+scenario - Mobile number should start with +91 space and followed by 10 digit
+
+  var mobile = g_form.getValue('u_test_cell_no'); // Change 'email' to your field name
+
+    var mobileRegex = /^\+91\s\d{10}$/;
+
+    if (mobile && !mobileRegex.test(mobile)) {
+        g_form.showFieldMsg('u_test_cell_no', 'Invalid mobile format.', 'error');
+        return false; // Prevent form submission
+    }
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+20 - Integer field validation
+
+ var intValue = gForm.getValue('integer_field');
+
+    // Check if the value is an integer
+    if (!/^-?\d+$/.test(intValue)) {  // Allows positive and negative integers
+        gForm.clearValue('integer_field'); // Clear the invalid input
+        gForm.addErrorMessage('Please enter a valid integer.');
+    }
+---------------------------------------------------------------------------------------------------------------------------------
+21 - Number Should not more than 2 digit validation
+
+var fieldValue = gForm.getValue('your_field_name'); 
+
+    // Regular expression to allow only 1 or 2 digit numbers (0-99)
+    var regex = /^\d{1,2}$/;
+
+    if (!regex.test(fieldValue)) {
+        gForm.clearValue('your_field_name'); // Clears invalid input
+        gForm.
+
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+22 - if user hasRoleExactly = 'admin' then and then he can access Caller field in table
+     other user it should be readOny
+Example-1
+
+
+if(!g_user.hasRoleExactly('admin'))
+ {
+	alert('You dont have itil role');
+	g_form.setReadOnly('u_caller',true);
+ }
+ else{
+	alert('you have itil role');
+	g_form.setReadOnly('u_caller',false);
+ }
+
+
+hasRole - [ including inherited ] 
+        Return true if the current user has specified role or admin role
+
+hasRoles - [ including inherited ] 
+
+Note - At least One role is required
+         
+hasRoleExactly - [ Without inherited ] 
+               Check id the user has exact specified role without inheritance
+
+hasRoleFromList - [ including inherited ]
+                 Return true if user has at least one role from list
+Note - Similar to calling hasRole() multiple times with OR condition
+
+Example-2
+
+function onLoad() {
+   
+   alert("hasRole -: "+g_user.hasRole('u_child_yoga_enrollment_user'));
+   alert("hasRoleFromList -: "+g_user.hasRoleFromList('u_car_invoice_user,u_car_vehicle_user,u_food_order_user,u_child_yoga_enrollment_user'));
+   alert("hasRoles -: "+g_user.hasRoles());
+   alert("hasRoleExactly -: "+g_user.hasRoleExactly('admin'));
+
+   
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+23 - Hide a field based on user role
+
+function onLoad() {
+  
+  if(!g_user.hasRoleExactly('admin'))
+  {
+	g_form.setReadOnly('u_caller',true);
+	g_form.setMandatory('u_short_discription',true);
+	g_form.setDisplay('u_active',false);
+	g_form.addInfoMessage('User Do not have Role admin');
+  }
+}
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+24 -  Prevent users from submitting a form without required fields servicenow client script
+
+function onSubmit() {
+  
+  if(!g_form.getValue('u_my_discription'))
+  {
+	
+	g_form.showFieldMsg('u_my_discription','Field Should Not Be Empty','error');
+	return false;
+  }
+   
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+25 - 
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+26 - 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+27 - 
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+28 -
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
