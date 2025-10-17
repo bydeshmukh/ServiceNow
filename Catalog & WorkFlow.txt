@@ -1,0 +1,296 @@
+                                                                                  Catalogs & Workflow
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Video : 1
+
+Catalogs 
+Example -:
+offline - Paint Shop , Dentist Hospital , Jewelry Shop , Cloth Shop
+Online  - Flipkart , Amazon 
+
+Service Catalogs - 
+Example -:
+1 software installation
+2 password reset
+3 printer configuration
+4 access of an applications
+
+a service b
+
+Azure support ( 5 members)
+
+Eamil
+team skypes(communication channel)
+tracking & measuring the productivity
+no ownership
+SLA
+
+Request to us
+reporting an issue
+request something
+
+** Service Catalog creation per 2 weeks  - 2/3
+example - For 2 years of an experience we can say - 150 [creation & modification ]
+
+** Out of 20 stories 7 / 12 are based on service catalogs
+
+Part 1 
+
+catalogs
+order guide
+record producer
+
+Part 2 - Strongest  
+
+Workflows -  we can do  Integration , Automation using workflow
+------------------------------------------------------------------------------------------------------------
+## Video : 2
+Idea to create service catalog (should be related to it services)
+
+> Memory increase request
+> software install
+> server built
+> application access
+> conference room booking request
+> hardware asset release
+> business card request
+> service order
+> network (VPN Cisco)
+> ServiceNow access (application)
+> cloud related access
+> internet access (site blocking & unblocking)
+
+> ServiceNow activities :
+- user admin
+- group admin
+- ServiceNow  application access
+- new app request
+- enhancement
+- request for ServiceNow instance
+- report or dashboard admin
+- request for ServiceNow scheduled job
+- request for cat item admin
+- request for new ci (configuration items)
+
+> Memory increase request
+1 - Device type (choice) - pc/server/virtual server
+2 - Amount of memory to be increased
+3 - Justification
+4 - Expected completed date:
+5 - Device Details
+6 - Is additional cost involved (Boolean) - true / false
+7 - Is backup required 
+8 - Additional owners
+
+
+
+Flow : - 
+dba approval (if type is server / vs)
+if type is pc - manager approval
+
+Procedure - 
+Go to application  - Catalog Definition -->> maintain items - New
+Name  - Memory increase request
+save it 
+Catalogs  - 99% we use Service Catalog
+Categories - services [ you can set according to catalog]
+** can we add same catalog in different diffrent category(like software , hardware) = Ans is YES 
+
+** In service catalog choice field type is - select box
+
+Procedure - 
+Go to application  - Workflow editor -->> New 
+Name  - set any name
+Table - always set - [ sc_req_item ]
+
+Variables -:
+Enter customer name -ref
+Manager -ref
+Device type - select box [choice]
+Device Details - single -line
+Amount of memory to be incresed - single -line
+justification - multi-line
+Expected completed date - date
+is Additional Cost involed - yes/no
+is backup required - yes/no
+additional owners - list collector
+
+------------------------------------------------------------------------------------------------------------
+
+## Video : 3
+
+Service catalog
+Request management
+1 Request           Table --  sc_req
+2 Requested item    Table --  sc_req_item
+3 catalog task      Table --  sc_task  
+
+** Under request we can have multiple requested items
+
+
+Core
+1 Approvals 
+ - Approval-group --> when we need approval from group or more than one use  
+ - Approval-user  --> use when need approval from single user or more than one user
+ - x=set Value --> we can change/set  sc_req_item  table value
+ - catalog task --> 90 % we use it
+ - create task --> generally we dont use
+ - approval action  --> to set the approval value
+
+
+how to get variable value in workflow
+var mgr = current.variable.manager
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 4
+
+Parallel approval 
+Parallel task
+
+Branch
+🔹 Why we use Branch
+
+You use the Branch activity when you want to perform multiple actions at the same time, instead of one after another.
+🔹 Example Use Case
+
+Scenario:
+You have a “New Laptop Request” catalog item.
+After approval, you want to:
+
+Create a task for IT Hardware to prepare the laptop.
+
+Create a task for Software Team to install required software.
+
+✅ Solution using Branch:
+
+Add a Branch activity after the approval step.
+
+Create two branches:
+
+Branch 1: Create “Hardware Task”
+
+Branch 2: Create “Software Task”
+
+Both tasks run simultaneously, improving process efficiency.
+
+Join
+If
+Switch
+Wait for condition
+Timer
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 5
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 6
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 7
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 8
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+## Video : 11
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+
