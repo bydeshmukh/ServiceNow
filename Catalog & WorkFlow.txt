@@ -184,19 +184,34 @@ If
 Switch
 Wait for condition
 Timer
-
-
-
-
-
-
-
-
-
-
-
 ------------------------------------------------------------------------------------------------------------
 ## Video : 5
+# Scenario 1
+create task for device type [pc/server/virtual server]  with the help of  only one catalog task
+Hint - script
+
+can we create incident from workflow
+ans - Yes with the help of Create Task
+Create Task - The create task activity creates a record on any of the table that extends the task table
+
+Scenario 2 
+# Automate user add to group request process
+solution-
+create catalog  - add user to group
+create variable - user [ref]
+                - Group [ref]
+
+Run Script
+**********
+var gr = new GlideRecord('sys_user_grmember');
+gr.initialize();
+
+gr.user = curent.variables.user;
+gr.group = curent.variables.group;
+
+gr.insert();
+
+How to know that person has added to group - wether it is added or not
 
 
 
@@ -205,6 +220,11 @@ Timer
 
 
 
+
+
+Diffrence between Catalog Task & Create Task
+Catalog Task - create a record on sc_req_item table
+Create Task  - create a record on extended Task tables [incident , problem , Change ]
 
 
 ------------------------------------------------------------------------------------------------------------
