@@ -37,9 +37,11 @@ example - For 2 years of an experience we can say - 150 [creation & modification
 
 Part 1 
 
-catalogs
-order guide
-record producer
+catalogs items   - we can create record on 1) sc_req 2)   sc_req_item 3) sc_task   **** mostly we use catalogs items  ***
+
+record producer  - we can create record on any tables
+order guide      - 
+
 
 Part 2 - Strongest  
 
@@ -259,7 +261,7 @@ Available for - always say user criteria not roles
 Not available for - make not availabe for perticular user
 
 stage 
-Two Imp question for interview
+## Two Imp question for interview
 1 can we pass value from one activity to another
 ans - yes 
 if(gr.next())
@@ -274,32 +276,73 @@ Used in workflow to pass value from one activity to another
 
 Used  g_scratchpad.variablename; in Display BR to pass value to client side
 
-
-
-
-
-
-
-
-
-
+2 How to pass value from workflow to subflow 
+ans - input variable
 ------------------------------------------------------------------------------------------------------------
 ## Video : 8
 
+Record Producer  - will help you to create a record on any table
+Que - Who can crete an incident in the system [user with itil role and admin ] 
+Ans - user with itil role and admin
 
+Que - how use can create an incident without having itil and admin role 
+Ans - with the help of Record Producer these people can able to create an incident
 
+** In Record Producer to access variable in script use - producer.variablename; not a current.variables.variablename;
+To Access Variable -:
 
+In catalog item we use    - current.variables.variablename;
+In Record Producer we use - producer.variablename;
 
+************ Very IMP  ****************
+1 - if backend name of variable is diffrent then we need to write script
+2 - but if backend name of both variable is same then we dont need to write script
+3 - Map To Field
+Above are 3 ways to create a variable in  record producer
 
+Que - can we trigger workflow from record producer
+Ans - Yes we can with the help of script but question is why to trigger if we have catalog iteam instead we can use catalog item
+Diffrence between catalog item & Record Producer
 
-
-
-
-
+Que - Can we create workflow for all tables 
+Ans - Yes We can 
 
 ------------------------------------------------------------------------------------------------------------
 ## Video : 9
 
+Order Guide  -  Everything is at one place like a bundle
+                we can track at single page
+
+Scenario 
+
+>> Employee join
+
+Laptop / Desktop
+Workstation
+VPN (CISCO)
+Email
+Phone
+Active Directory user account  - what is Active Directory
+Servicenow user account - froup additions
+
+Rule Base
+***********
+Two step or three step  - is nothing but 1 - Describe Needs / 2 - Choose Options / 3 - Checkout
+
+When Two step is unchecked - then after checkout we get edit and delete option [final confirmation page] - we call it three step 
+But
+When Two step is checked  - then we don't get edit and delete option [final confirmation page]  - we call it two step
+
+Cascade Variable 
+******************
+- when it check then whatever value we pass in order guide will be send to catalog item [passing value to next level]
+Cascade Variable - when it uncheck then whatever value we pass in order guide will  not be send to catalog item
+
+Ignore Mandatory Evalution
+***************************
+When it is checked then mandatory will be ingone in catalog item
+But
+When it is unchecked then mandatory will not be ingone in catalog item it will show you mandatory icon on tab
 
 
 
