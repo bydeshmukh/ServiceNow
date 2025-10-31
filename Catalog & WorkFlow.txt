@@ -116,7 +116,7 @@ is Additional Cost involed - yes/no
 is backup required - yes/no
 additional owners - list collector
 
-------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------ 
 
 ## Video : 3
 
@@ -141,11 +141,6 @@ Core
 
 how to get variable value in workflow
 var mgr = current.variable.manager
-
-
-
-
-
 
 ------------------------------------------------------------------------------------------------------------
 ## Video : 4
@@ -189,10 +184,16 @@ Timer
 # Scenario 1
 create task for device type [pc/server/virtual server]  with the help of  only one catalog task
 Hint - script
+Memory 7 already created Workflow
 
 can we create incident from workflow
 ans - Yes with the help of Create Task
-Create Task - The create task activity creates a record on any of the table that extends the task table
+Create Task
+*************
+ The create task activity creates a record on any of the table that extends the task table
+
+Memory 8 already created Workflow
+
 
 Scenario 2 
 # Automate user add to group request process
@@ -213,13 +214,11 @@ gr.insert();
 
 How to know that person has added to group - wether it is added or not
 
-
-
-
-
-
-
-
+var ab = current.variables.dt;
+if(dt == 'pc')
+{
+	current.discri
+}
 
 
 Diffrence between Catalog Task & Create Task
@@ -230,19 +229,50 @@ Create Task  - create a record on extended Task tables [incident , problem , Cha
 ------------------------------------------------------------------------------------------------------------
 ## Video : 6
 
+1 Rollback
+2 Turnstile 
+Workflow name for rollback and turnstile is - Rollback And Turnstile
+3 subflow - subflow demo
+4 Nofification - notification demo 
+to check email - go to syatem logs  - emails
 
+#Scenario 1 
 
-
-
-
-
-
-
-
+# Automating of group management
+type - Create , Update , Retire ,Delete
 
 ------------------------------------------------------------------------------------------------------------
 ## Video : 7
+variable set - collection of variables
+Ui Policy
+sub features checkbox
+1 Applies on a catalog item view
+2 Applies on catalog task
+3 Applies on Requested items
+** Global & inherit Do not support in catalog ui action
 
+Que - Diffrence between normal ui policy and catalog ui policy
+
+Variables / variable sets / catalog ui pilicies / catalog client script / available for / not available for / categories / caalogs / catalog data lookup defination / related articles / related catalog items / assigned topics / requested items / requested items 
+
+Available for - always say user criteria not roles
+Not available for - make not availabe for perticular user
+
+stage 
+Two Imp question for interview
+1 can we pass value from one activity to another
+ans - yes 
+if(gr.next())
+{
+ solution - workflow.scratchpad.sk = 'yes'; sk here is variablename }
+
+in BR we use g_scratchpad.variablename; // for BR 
+
+diffrence between workflow.scratchpad.sk  && g_scratchpad.variablename; 
+
+Used in workflow to pass value from one activity to another
+
+Used  g_scratchpad.variablename; in Display BR to pass value to client side
 
 
 
