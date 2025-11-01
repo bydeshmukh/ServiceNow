@@ -344,18 +344,6 @@ When it is checked then mandatory will be ingone in catalog item
 But
 When it is unchecked then mandatory will not be ingone in catalog item it will show you mandatory icon on tab
 
-
-
-
-
-
-
-
-
-
-
-
-
 ------------------------------------------------------------------------------------------------------------
 ## Video : 10
 
