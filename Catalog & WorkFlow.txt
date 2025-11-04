@@ -251,7 +251,7 @@ sub features checkbox
 1 Applies on a catalog item view
 2 Applies on catalog task
 3 Applies on Requested items
-** Global & inherit Do not support in catalog ui action
+** Global & inherit  and  Related list Do not support in catalog ui action
 
 Que - Diffrence between normal ui policy and catalog ui policy
 
@@ -281,7 +281,7 @@ ans - input variable
 ------------------------------------------------------------------------------------------------------------
 ## Video : 8
 
-Record Producer  - will help you to create a record on any table
+Record Producer  - Record Producer will help you to create a record on any table
 Que - Who can crete an incident in the system [user with itil role and admin ] 
 Ans - user with itil role and admin
 
