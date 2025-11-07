@@ -1,0 +1,27 @@
+## What is integration
+ 
+
+
+## Why we use integration
+
+
+
+Part 1:
+Data Source
+Import Sets
+Transform Maps
+Transform Script
+LDAP Integration
+
+Part 2:
+Webservices(REST) - Postman application
+ServiceNow to ServiceNow integration
+ServiceNow to Jira integration
+
+
+
+
+
+
+
+
