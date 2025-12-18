@@ -49,6 +49,7 @@ Ready-made connectors for Slack, Teams, Workday, Salesforce, etc.
 CSV/XML files from SFTP or shared folder.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 1
 
 Part 1:
 Data Source
@@ -61,6 +62,246 @@ Part 2:
 Webservices(REST) - Postman application
 ServiceNow to ServiceNow integration
 ServiceNow to Jira integration
+
+
+Example 
+
+Gpay / PhonePay / Paytm
+
+- open phonepay
+- click on electricity bill
+
+# Transaction 1 : get the data and show  [ go to electricity bill server and get the data ]
+# Transaction 2 : Payment gateway [ go to bank and pay money ]
+# Transaction 3 : update the status [ update status phonepay side  like payment is done nothing to pay it also update at bank side as well
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Video : 2
+
+# Data Source
+# Import Sets
+# Transfrom Maps
+
+ETL [ Extract Transfrom Load ] -- is the process of combining data from multiple sources into a large
+
+Step 1 Export data from user table and edit it
+Step 2 Go to nav - look for data sources under administration open it
+Step 3 New
+Step 4 Fill the details
+ import set table name - is a table where data get store first [ staging / intermediate / import set table ] 
+Step 5 Save it 
+Step 6 Load all Records
+Step 7 Create Transform map
+fill details like target table & save it
+Step 8 Click on Auto map matching field
+Step 9 Click on transform 
+Step 10 See transform history
+Here We Done
+
+
+Data Source - is telling us from where data is coming
+
+Table -  sys_transform_map
+
+Coalesce 
+if matched - Update
+if not     - Create
+
+2 Coalesce 
+if all matched        - Update
+if one not matched among all      - Create
+
+Go to record check values [user id ] is there or not if there then insert record
+Go to record check values [user id ] is there or not if not then update record
+
+if there are 10 Coalesce 
+all should be matched then it will update
+if any got failed to match then insert
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Video : 3
+1 - Mapping Assist
+2 - Coalesce Case Sensitive
+3 - empty field 
+4 - Run Business rule - we can control business rule from running [ By default they will run ] 
+if you don't want to run any business rule based on record inserted or updated due to transform map then  uncheck it
+if you  want to run any business rule based on record inserted or updated due to transform map then check it
+5 - Enforce mandatory field 
+Enforce mandatory field - No - 90% we use not 
+Enforce mandatory field - only mapped field - 10% we use this one -it restrict to insert data if mandatory field is blank
+
+Note - if you are not passing any value from excel sheet to table then it wont override existing value
+ex- short description from excel file do not have data and you are trying to transform it into table then it wont override existing value [existing value will be as it]
+if you want to replace the value then you need to use - empty field 
+
+6 - Use Source script -
+var gr = new GlideRecord('sys_user');
+gr.adduery('email',source.u_requestor_email);
+gr.query();
+if(gr.next())
+{
+return gr.sys_id;
+}
+
+Here Source Represent the source table
+
+Maximum Time We Use Attachment only
+
+7 - FTP
+8 - HTTP
+
+Type - JDBC
+
+LDAP - 
+We use LDAP integration when i want to get data from active directory to sys_user table 
+active directory / domain - User Login information 
+
+1 - Go to navigation - LDAP server
+servicenow integration - LDAP Integration in servicenow - by - basico servicenow learning
+
+2 - go to website - www. basicoservicenowlearning.com 
+
+Useful Website for test server - https://www.forumsys.com/2022/05/10/online-ldap-test-server/
+
+Video link - https://youtu.be/abEcWfY3kPw?si=HW78Y0XZBbpC2jhh
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 5
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 6
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 7
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Video : 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
