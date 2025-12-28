@@ -1,0 +1,759 @@
+*****     Video 1    *****
+What is script 
+ In ServiceNow, a script refers to a piece of JavaScript code that runs on the server-side or client-side to perform specific logic, automate processes, or customize the platform's behavior.
+✅ Professional Explanation of Client Script in ServiceNow
+Client Scripts in ServiceNow are JavaScript functions that execute in the user's browser to manage and enhance the behavior of forms and fields dynamically. They are used to improve the user experience by validating inputs, setting field values, hiding or disabling fields, and responding to user interactions without requiring a round trip to the server.
+
+🔹 Purpose of Client Scripts
+Improve form usability and responsiveness
+
+Perform real-time validations
+
+Auto-fill fields based on user selections
+
+Show/hide or enable/disable fields dynamically
+
+🔹 Types of Client Scripts
+Type	Description
+onLoad	Runs when the form is loaded
+onChange	Runs when a specific field value changes
+onSubmit	Runs before the form is submitted
+onCellEdit	Runs when a cell is edited in a list view (only in list v3)
+Types of script - client & server side script
+✅ Client-Side Scripts
+Client Script
+
+UI Policy Script
+
+Catalog Client Script
+
+UI Script
+
+UI Action (Client part)
+
+✅ Server-Side Scripts
+Business Rule
+
+Script Include
+
+Scheduled Script
+
+Workflow/Flow Script
+
+Transform Script
+
+ACL Script
+
+Fix Script
+
+UI Action (Server part)
+
+Scripted REST API
+-------------------------------------------------------------------------
+🔹 Where Scripts Are Used
+Forms
+
+Workflows
+
+Integration (REST, SOAP)
+
+Portals
+
+Security (ACLs)
+
+UI Actions (buttons)
+-------------------------------------------------------------------------
+✅ 1. Automate Tasks
+Scripts help automatically perform actions like:
+
+Assigning tasks
+
+Sending notifications
+
+Setting field values
+
+Creating related records
+
+📌 Example: Auto-assign an incident to a group if category = “Network”.
+
+✅ 2. Customize Behavior
+Modify how forms, lists, or workflows behave based on business rules.
+
+📌 Example: Hide a field when a specific user role opens the form.
+
+✅ 3. Enforce Business Logic
+Ensure correct data is entered or processed.
+
+📌 Example: Prevent submitting a change request without risk assessment.
+
+✅ 4. Enhance User Experience
+Provide dynamic responses to user actions on the form.
+
+📌 Example: Autofill the “Subcategory” field when a specific “Category” is selected.
+
+✅ 5. Control Access
+Scripts in ACLs (Access Control Lists) determine who can:
+
+View
+
+Edit
+
+Delete records or fields
+
+📌 Example: Only allow managers to update the “priority” field.
+
+✅ 6. Reuse Common Logic
+Use Script Includes to create reusable server-side functions.
+
+📌 Example: A function that returns the current logged-in user’s manager.
+
+✅ 7. Integrate with External Systems
+Write scripts for REST/SOAP APIs to send or receive data from other platforms.
+
+📌 Example: Create a user in ServiceNow when a new employee joins in Workday.
+
+🔁 In Short:
+Scripts give you control, automation, and flexibility in ServiceNow, helping align the platform with real business processes.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+*****     Video 2    *****
+Client Script 
+Placement of Script  loading form / update / submit / select or change value 
+Client Script Types - onSubmit
+                      OnSelect
+                      onload
+                      onCellEdit
+--------------------------------------------------------------------------------------------------------------------------------------------------
+g_form is a JavaScript object available in Client Scripts and UI Policies that allows you to interact with and manipulate form fields directly in the browser.
+-------------------------------------------
+Example funtion onLoad()
+{
+alert('Hello Vishal sir');
+}
+--------------------------------------------
+Example 2 
+
+var gr = g_form.getValue('u_active');
+if(gr =='true')
+{
+alert('this is true');
+}
+else
+{
+alert('this is false');
+}
+---------------------------------------------
+getValue
+	
+removeDecoration
+addErrorMessage
+addInfoMessage
+clearMessages
+enableAttachment
+disableAttachment
+---------------------------------------------
+*****     Video 3    *****
+
+1- addOption - is use to add choices to dropdonw field
+note - when we inherit option / choice from other table then we cant create choice in same field if you create then it wont appear in display / list
+ex - g_form.addOption('u_active','backend value','front end value','order');
+  
+  g_form.addOption('u_active','cust','customer pending','4');
+
+2- removeOption- is use to remove choice from dropdown list
+
+ex- g_form.removeOption('u_active','cust');
+
+
+
+
+3- clearOptions - remove all choice from list  [ never ever use it]
+
+ex - clearOptions('u_state');
+
+4 - clearValue - is used to remove default content
+
+5- flash - used to draw a attention to a particular field [ we dont use in live enviroment ] 
+ex- g_form.flash(field name , color , count) count -nothing but how long it will flash
+
+g_form.flash('u_discription','#FF0000','-4');
+
+
+6 - setValue 
+
+  var a= g_form.getValue('u_category');
+   if(a == 'software')
+   {
+	g_form.setValue('u_assigned_to','a2826bf03710200044e0bfc8bcbe5ded');
+	g_form.setValue('u_caller','8382abf03710200044e0bfc8bcbe5d43');
+	g_form.setValue('u_impact','2');
+	g_form.setValue('u_approval','true');
+	g_form.setValue('u_short_discription','Welcome to Marshmellow');
+	g_form.setValue('u_members','52826bf03710200044e0bfc8bcbe5db6,66826bf03710200044e0bfc8bcbe5de1');
+   }
+   else{
+	g_form.clearValue('u_assigned_to');
+	g_form.clearValue('u_caller');
+	g_form.clearValue('u_impact');
+	g_form.clearValue('u_approval');
+	g_form.clearValue('u_short_discription');
+   }
+      --------------------------------------------------------------------------------------------------------------------------------------------------
+Video - 4
+
+1 scenario - user details like username ,fname,lname,email,manager ,should get pop up automatically 
+dot walk - both side field should be same
+
+2 scenario - create client script on task table  [getTableName]
+
+if table is incident then write welcoome to incident in discription field
+
+if table is problem then write welcoome to problem in discription field
+
+if table is change then write welcoome to change in discription field
+
+** Method **
+setVisible
+setDisplay
+setLabelOf
+
+setMandatory - if there is mandatory field and we are trying to hide it then it wont hide 
+ solution -    first male  mandatory field false then hide it
+
+
+
+3 Scenario When i select state = new then new field should be visible other will be invisible and make it mandatory
+
+           When i select state = in progress then in progress field should be visible other will be invisible and make it mandatory
+
+           apply for all state
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Video 5
+getSectionNames() - return section names  [ there is no way to see backend name of sections ]
+getSections()     - return html code kind
+showFieldMsg()   -  showFieldMsg('fieldname','msg','error/info/warning');
+hideFieldMsg()   - hideFieldMsg('fieldname',true);
+setSectionDisplay() - is use to hide and show sections [ only use for section ] 
+shit + ctrl + alt + j   - JavaScript executor
+
+sceanrio 1 if section is active show section and if it is false hide the section
+
+
+var act = g_form.getValue('u_active');
+
+if(act == 'false')
+{
+g_form.setSectionDisplay('u_work',false);
+}
+else
+{
+g_form.setSectionDisplay('u_work',true);
+}
+
+let assume we have to hide the section and there is one field under section which is mandatory can we hide that section ?
+ans - NO first of all we have to make it unmandatory then we can hide it
+
+
+function onChange(control , oldValue, newValue, isLoading, isTemplate)
+
+control - it return html attribute
+olaValue - return saved valued from dataase / record
+newValue - return new value which is unsaved yet
+isLoading - this function tell you whether this script run on onloading time or not
+            if it is loading it will return - true
+            if it is not it will return - false
+isTemplate - 
+
+Note - on change client script will not run on onload loading time by default
+
+Roles 
+
+// g_user.hasRole('itil') -  selcted role or admin role
+// g_user.hasRoles('admin,itil,desiner') -  has any role from list
+// g_user.hasRoleExactly('itil') -  only specified role not inherited from other role like admin
+// g_user.hasRoleFromList('itil,action_designer,) from specified role or admin role
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Server Side Scripting - Backbone [ Heart ] Of Servicenow
+GlideRecord - is kind of g_form  
+CURD Operation
+C - create
+U - Update
+R - Read
+D - Delete
+Server Side Scripting example - make person deactivate who didnt login from last 3 month
+
+Where we can use
+1  Business Rule
+2  Background Script
+3  Schedule jobs
+4  UI Action
+5  Script Include
+6  WorkFlow scripting
+7  flow desiger scripting
+8  integration scripting
+9  fix scripting
+10 event notification
+11 Transform Maps scripting
+
+ ## Background Script
+
+var gr = new GlideRecord('incident');                 - going to table
+gr.addEncodedQuery('paste query here');               - writing query
+gr.query();                                           - running query
+while(gr.next())                                      - looping
+{
+gr.print(gr.number);
+gr.description = 'this is keybord base incident';     - writing thing to update
+gr.update();                                          - updating
+}
+
+## Business Rule
+Is nothing but server side scripting activity that runs when a record is inserted ,update,queries,deeted
+
+Types Of BR - before   ex - (script)record is going to update - first child incident get updated first then main incident update [ main incident has to wait for child to get updated]
+               Transaction 1 - Transaction child + Transaction main
+            - after    ex - record is going to update (script) - first main incident get updated then child get updated [ main incident has to wait for child to get updated]
+              Transaction 1 - Transaction main + Transaction child
+
+            - async  - no wait  Transaction - Transaction 1 + Transaction 2  [ most preferable ]having some challeges  - some methods wont work ]
+
+            - display  - dont use mostly
+
+incident1 - main (trigger)
+10 incident - backend job
+#scenario - in parent incident state updated , update the same state in all child incident
+
+Job1 : update parent incident
+Job2 (backend job):update child incident
+
+
+Transaction - 
+User adminstration - all active transaction
+
+-----------------------------------------------------------------------------------------------------------
+Video 9
+
+if(gr.canCreate=='true')
+{
+gr.short_description = 'welcome';
+gr.update();}
+else
+{
+gs.info("not allowed to create record because you dont have perticular role to access it");
+
+gs.log("not allowed to create record because you dont have perticular role to access it");
+}
+
+Navigaion - system log - all
+both info and log get saved in system logs
+
+gs.info and gs.log and gs.print will do sam opertion in background script
+
+but gs.print wont work in other script such as - shedule job,BR
+
+deleteMultiple in live envorment we don't use both methods 
+deleteRecord
+
+gr.addNullQuery('');
+gr.query();
+gr.deleteMultiple();
+-------------------------------
+gr.addNullQuery('');
+gr.query();
+while(gr.next())
+{
+gr.deleteRecord();
+gr.log('reson'+'gr.number);
+}
+
+
+recover deleted data 
+nav - system defination - deleted records
+note- not everthing capture here 
+dont rely on it
+getValue-
+if(gr.short_discripton.includes('hellow'))
+gr.getValue('short_discripton');
+
+orderBy('sys_created_on');
+orderBy('updated');
+orderByDesc('sys_created_on');
+orderByDesc('updated');
+setValue
+getValue
+
+hasNext - return boolean vaile - true/false
+Next
+_next
+note - both _next & Next do same operation but if we have column name like Next then Next wont work then you can  use _Next
+
+query 
+_query
+note - both query & _query do same operation but if we have column name like query then query wont work then you can  use _query
+
+
+sys_dictionary
+
+#1 Assigngment:
+
+As part of platofrm clean up, find out all the users who are not logged for more than 6 months and inactive them run this job for every week.
+
+solution - var gr = new GlideRecord('incident');
+gr.addQuery('active=true^caller_id.active=true^caller_id.last_loginRELATIVELT@month@ago@3');
+gr.query();
+gs.print(gr.getRowCount());
+while(gr.next())
+{
+	gs.print(gr.number);
+}
+
+#2
+
+Get all the incidents whose category is software or hardware or network (DONT use encoded query) #tip: addOrCondition.
+
+var gr = new GlideRecord('incident');
+gr.addActiveQuery(); // Filter active=true
+
+var qc = gr.addQuery('category', 'software').addOrCondition('category', 'network');
+
+gr.query();
+
+while (gr.next()) {
+    gs.info('Number: ' + gr.getValue('number') + ', Category: ' + gr.getValue('category'));
+}
+
+---------------------------------------------------------------------------------------------------------------Video 10 
+
+#scenario 1 
+get the incident whose sys_id ='dfv1515v5d1v51vdv' and check is short disscription contains printer  if yes then update short discription with -'
+Printer Related Issue'
+
+Methods 
+# setWorkflow(Boolean value);
+if setWorkflow(false)- then other BR Wont Work
+but if  setWorkflow(true)- then other BR Will work
+
+# autoSysFields(false);
+when you write above line in your script then whatever changes you made in system such as  update incident  wont be show your identity ;
+
+var gr = new GlideRecord('incident');
+gr.addQuery('number', 'IN', 'INC0000007,INC0000017');
+gr.query();
+gs.print(gr.getRowCount());
+while (gr.next()) {
+
+    gr.short_description = ('Chages made using by autoSysFields ');
+    gr.state = 1;
+    gr.setWorkflow(false);
+    gr.autoSysFields(false);
+    gr.update();
+
+}
+
+
+
+Ui Action -
+The more you keep button on form the more time will take to load
+
+
+------------------------------------------------------------------------------------------------------------
+
+Video 11 
+
+# Scanerio 1
+
+The system must allow only one incident to be created. If an incident already exists, the creation option should not be displayed.
+
+The creation option should be displayed only when the script state is Cancelled .
+
+If the user has the VIP flag set to true, the system should display a message indicating that the user is a VIP.
+
+Upon creation, the system should add the following work note to the incident : s“This incident has been created as a layoff ticket for escalation.”
+
+Solution
+
+var gr = new GlideRecord('incident');
+gr.initialize();
+gr.caller_id = current.u_caller;
+gr.category = current.u_category;
+gr.state = current.u_state;
+gr.short_description = current.u_short_discription;
+gr.description = current.u_discription;
+gr.impact =2;
+gr.urgency = 2;
+gr.assignment_group = current.u_assigned_group;
+gr.assigned_to = current.u_assigned_to;
+if(current.u_vip ==true)
+{
+	gr.u_imp =true;
+	gs.addInfoMessage("User Is VIP");
+	gr.update();
+}
+gr.insert();
+current.u_incident = gr.sys_id;
+current.update();
+action.setRedirectURL(gr);
+gs.addInfoMessage('Incident - '+gr.number+'- has been created');
+gs.addInfoMessage('Script No is  - '+current.u_number);
+gs.update();
+
+
+# Scanerio 2 
+i have problem(parent) and it contains few incident(child)
+when problem get closed then incident should get closed as well
+
+# Scanerio 3 [ schedule job]
+
+As a part of platform clean up 
+get all closed problem, if any incidents who are associated with closed problem is still active then close them
+
+------------------------------------------------------------------------------------------------------------
+
+
+Video 14
+
+Function - Function is block of organized , reusable code that perform a specific task
+You give it some input, it does some work, and it gives you back an output.
+You can call it anywhere in your script (Business Rule, Script Include, Client Script, etc.)
+
+Example 1 - 
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+  var call = g_form.getReference('u_caller');
+  g_form.setValue('u_userid',call.user_name);
+  g_form.setValue('u_fname',call.first_name);
+  g_form.setValue('u_lname',call.last_name);
+  g_form.setValue('u_uemail',call.email);
+  g_form.setValue('u_umanager',call.manager);
+   
+}
+
+Example - 2 
+
+function onLoad() {
+  
+  g_form.setValue('u_caller','22826bf03710200044e0bfc8bcbe5dec');
+  g_form.addErrorMessage("THis is not a error");
+  g_form.addInfoMessage('this is info msg');
+  g_form.disableAttachments();
+   
+}
+
+Example - 3
+function onCellEdit(sysIDs, table, oldValues, newValue, callback) {
+  var saveAndClose = true;
+ //Type appropriate comment here, and begin script below
+ 
+ if(oldValues !== newValue)
+ {
+	alert('Not Aloowed To Change Value');
+	saveAndClose = false;
+ }
+ callback(saveAndClose); 
+}
+
+
+
+class - A class is like a blueprint or template(collection of functions).
+
+With GlideRecord, you can:
+
+Read records
+Insert new records -  insert()
+Update existing records - update()
+Delete records  - delete()
+
+var GR = new GlideRecord('incident'); - GlideRecord class.
+gr.addQuery('category','software'); -addQuery() is a Method / Function
+gr.query(); - query() is a Method / Function
+---------------------------------------------------
+🔹 Server-side Classes
+
+GlideRecord
+GlideAggregate
+GlideDate
+GlideUser
+---------------------------------------------------
+🔹 Client-side Classes
+
+GlideAjax
+GlideForm (g_form)
+---------------------------------------------------
+GlideUser (g_user) ----
+addDecoration()
+
+addErrorMessage()
+
+addInfoMessage()
+
+addOption()
+
+addOptionSet()
+
+
+---------
+GlideRecord - method 
+addEncodedQuery()
+addQuery()
+addActiveQuery()
+addNullQuery()
+addNotNullQuery()
+
+
+Scenario *****
+
+----------------------------------------------------------
+Client Script -:
+
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+  var mail = g_form.getValue('u_uemail');
+  alert("initial alert "+mail);
+  var ga = new GlideAjax('global.getUserInfo');
+  ga.addParam('sysparm_name','emailDetails');
+  ga.addParam('sysparm_value',mail);
+  ga.getXML(getResult);
+  function getResult(response){
+	var serverresult = (response.responseXML.documentElement.getAttribute("answer"));
+	var res = serverresult.split('&');
+	alert("Last alert "+res);
+	g_form.setValue('u_fname',res[0]); 
+	g_form.setValue('u_lname',res[1]); 
+	g_form.setValue('u_umanager',res[2]); 
+	g_form.setValue('u_mobile',res[3]); 
+  }
+  
+   
+}
+----------------------------------------------------------------------------------------------
+Script Include -:
+
+var getUserInfo = Class.create();
+getUserInfo.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+
+ emailDetails:function(){
+	var test = this.getParameter('sysparm_value');
+	var gr = new GlideRecord('sys_user');
+	gr.addQuery('email',test);
+	gr.query();
+	while(gr.next())
+	{
+		return gr.first_name +"&"+gr.last_name +"&"+gr.manager+"&"+gr.mobile_phone;
+	}
+ },
+    type: 'getUserInfo'
+});
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Video 15
+Reference Qualifier  -: it is used to restrict data from reference field/table
+
+TYPE -: Simple      - we use condition builder
+                    -: Advanced - We use encoded query / javascript
+                    -: Dynamic  - we use script include & business rule
+
+
+Dynamic Reference Qualifier
+Nav - system defination - dynamic filter options
+
+** whenever you use after new is a class in entire servicenow  - new PAUtils().getContributor()
+
+Video Extra
+** - We can write and run more than 2 script in background script
+
+var gdt = new GlideAggregate('incident');
+gdt.addAggregate('COUNT');
+gdt.query();
+if(gdt.next())
+{
+	var count = gdt.getAggregate('COUNT');
+   gs.info("Total Incidents:"+count);
+   
+
+}
+var gd = new GlideAggregate('problem');
+gd.addAggregate('COUNT');
+gd.query();
+if(gd.next())
+{
+	var count1 = gd.getAggregate('COUNT');
+   gs.info("Total problem:"+count1);
+   
+
+}
+
+-----------------------------------------------------------------------------
+
+Diffrence between Fix Script and Background Script in Servicenow
+
+Background Script
+: if we refersh the page then script will be removed and we have to rewrite it
+: will not get captured in update set
+
+
+Fix Script
+: if we refersh the page then script will be there sp no need to rewrite it
+: will get captured in update set so we can move to another instance as well
+
+--------------------------------------------------------------------------
+what is g_scratchpad ?
+use to access server data from client
+it is an object that passes information from server to client
+you need to create g_scratchpad properties to hold the information
+only work with Display Buisness rule
+it should only be used when you should not expect the dat to be changed dynamically
+Drawback : it only shows the information when form is loaded
+
+Scenarion 1 :
+when the incident form loads it display the caller emailid in the form
+BR Code -
+(function executeRule(current, previous /*null when async*/ ) {
+
+    // Add your code here
+    g_scratchpad.bang = current.u_caller.email;
+
+})(current, previous);
+
+Client Script code -
+function onLoad() {
+   //Type appropriate comment here, and begin script below
+   g_form.addInfoMessage('Email id of current email id is :- '+g_scratchpad.bang);
+}
+
+Scenarion 2 :
+when you create problem taks from a problem record then it would automatically load short description .description,assigned to field value from the problem record
+
+Buiness Rule Sceanrio :-
+1 if priority of problem record changes to critical then it will create tow diffrent types [ general ,root cause analysis ] od problem task
+
+2 if work notes for an incident record changes it should update the same work notes in the associate problem record also
+
+3  create a field in problem table named as associate incident count
+once an incident will attach to a problem record,the count will increase
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
